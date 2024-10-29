@@ -1,12 +1,6 @@
 import React from "react";
 
-const Card = () => {
-	const card = {
-		image: "https://deckofcardsapi.com/static/img/9H.png",
-		value: "9",
-		suit: "Hearts",
-	};
-
+const Card = ({ card }) => {
 	return (
 		<div>
 			<img src={card.image} alt={`${card.value} of ${card.suit}`} />
