@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Card from "./Card";
+import "./App.css";
 
 function App() {
 	const [cards, setCards] = useState([]);
@@ -21,7 +22,6 @@ function App() {
 			const cardsDrawn = cardData.cards;
 
 			setCards(cardsDrawn);
-			console.log("cards: ", cardsDrawn);
 			calculateScore(cardsDrawn);
 		};
 
@@ -50,7 +50,7 @@ function App() {
 			<header className="Blackjack">
 				<h1>Basic Blackjack</h1>
 
-				<div>
+				<div className="card-container">
 					{cards.map((card) => (
 						<Card key={card.code} card={card} />
 					))}
