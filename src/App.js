@@ -3,6 +3,7 @@ import Card from "./Card";
 
 function App() {
 	const [cards, setCards] = useState([]);
+	const [score, setScore] = useState(0);
 	const baseUrl = "https://deckofcardsapi.com/api/deck";
 
 	useEffect(() => {
@@ -19,12 +20,30 @@ function App() {
 			const cardData = await cardResponse.json();
 			const cardsDrawn = cardData.cards;
 
-			console.log("cards: ", cardsDrawn);
 			setCards(cardsDrawn);
+			console.log("cards: ", cardsDrawn);
+			calculateScore(cardsDrawn);
 		};
 
 		fetchCards();
 	}, []);
+
+	const calculateScore = (cards) => {
+		let totalScore = 0;
+		let tenPointCards = ["KING", "QUEEN", "JACK", "10"];
+
+		cards.forEach((card) => {
+			if (card.value === "ACE") {
+				totalScore += 11;
+			} else if (tenPointCards.includes(card.value)) {
+				totalScore += 10;
+			} else {
+				totalScore += parseInt(card.value);
+			}
+		});
+
+		setScore(totalScore);
+	};
 
 	return (
 		<div className="App">
@@ -36,6 +55,8 @@ function App() {
 						<Card key={card.code} card={card} />
 					))}
 				</div>
+				<h2>Score: {score}</h2>
+				{score === 21 && <h3>BLACKJACK!!!</h3>}
 			</header>
 		</div>
 	);
