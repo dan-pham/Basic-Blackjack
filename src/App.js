@@ -7,9 +7,10 @@ function App() {
 	const [score, setScore] = useState(0);
 	const baseUrl = "https://deckofcardsapi.com/api/deck";
 
+	// Fetch cards from API
 	useEffect(() => {
 		const fetchCards = async () => {
-			// Shuffle deck
+			// Fetch deck
 			const cardDeckUrl = `${baseUrl}/new/shuffle/?deck_count=1`;
 			const deckResponse = await fetch(cardDeckUrl);
 			const deckData = await deckResponse.json();
@@ -55,6 +56,7 @@ function App() {
 						<Card key={card.code} card={card} />
 					))}
 				</div>
+
 				<h2>Score: {score}</h2>
 				{score === 21 && <h3>BLACKJACK!!!</h3>}
 			</header>
